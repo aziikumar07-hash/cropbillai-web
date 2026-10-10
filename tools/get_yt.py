@@ -1,3 +1,4 @@
+# LEGACY: kept for reference only; not maintained. See tools/README.md.
 import urllib.request
 try:
     req = urllib.request.Request('https://www.youtube.com/watch?v=TnduiS4kyg8', headers={'User-Agent': 'Mozilla/5.0'})

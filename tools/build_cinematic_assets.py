@@ -3,7 +3,9 @@ from pathlib import Path
 import cv2
 import json
 
-assets = Path(__file__).parent / 'site' / 'assets'
+root = Path(__file__).resolve().parent.parent
+sources_dir = root / 'media-src' / 'assets'  # source MP4s (moved out of site/)
+assets = root / 'site' / 'assets'
 sources = [
     'Firefly Macro cinematic push-in (dolly forward) at ground level through pristine rows of healthy whe.mp4',
     'drone flight over a vibrant green agricultural field at sunri.mp4',
@@ -15,7 +17,7 @@ out.mkdir(exist_ok=True)
 manifest = []
 thumbnails = []
 for scene, source in enumerate(sources):
-    cap = cv2.VideoCapture(str(assets / source))
+    cap = cv2.VideoCapture(str(sources_dir / source))
     if not cap.isOpened():
         raise RuntimeError(f'Cannot open {source}')
     count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))

@@ -1,3 +1,4 @@
+# LEGACY: kept for reference only; not maintained. See tools/README.md.
 import os
 import subprocess
 
