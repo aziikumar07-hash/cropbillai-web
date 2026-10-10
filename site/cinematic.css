@@ -1,0 +1,47 @@
+/* The opening, film, chapters and exit share one sticky stage. */
+.cinematic{height:650vh;background:var(--cream)}
+.cinematic .story-stage{height:100svh;min-height:0;background:#000;isolation:isolate}
+.film-window{position:absolute;inset:0;overflow:hidden;clip-path:circle(0px at 50% 65%);background:#000 url('assets/cinematic/0/000.webp') center/cover;z-index:0;will-change:clip-path,transform}
+.film-window canvas{display:block}
+.cinematic .hero{position:absolute;inset:0;height:100%;min-height:0;max-height:none;background:#000;z-index:2;display:flex;align-items:center;pointer-events:auto}
+.cinematic .hero-image{background:radial-gradient(ellipse at 50% 55%,#263b2429,transparent 60%)}
+.cinematic .hero-shade{display:none}
+.cinematic .hero-reveal{background-image:url('assets/Golden Wheat Agritech Dashboard Image II.png');opacity:0}
+.cinematic .hero.pointer-inside .hero-reveal{opacity:.35}
+.cinematic .hero-content{max-width:none;text-align:center;padding:120px 5% 100px;position:relative}
+.cinematic .hero .eyebrow{justify-content:center;color:#c2c7b0;font-size:9px;letter-spacing:3px}
+.cinematic .hero h1{margin:30px 0 22px;line-height:1}
+.hero-wordmark{display:block;font-size:clamp(78px,15vw,240px);font-weight:600;letter-spacing:-.085em;line-height:1.1;background:linear-gradient(135deg,#f7f9e9 12%,#e0e7cf 40%,#b2c692 60%,#f2d999 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-wordmark>span{font-weight:400}
+.hero-tagline{display:block;font-family:Manrope,sans-serif;font-size:clamp(22px,2.8vw,42px);line-height:1.25;font-weight:400;letter-spacing:-1px;margin-top:30px}
+.cinematic .hero-description{margin:22px auto 0;max-width:390px;font-size:13px;color:#bbc3b3}
+.cinematic .hero-actions{justify-content:center;margin-top:25px}
+.cinematic .hero-bottom{bottom:35px}
+.cinematic .hero-bottom a{letter-spacing:2px;font-size:8px}
+.cinematic .hero-bottom .reveal-hint{font-size:10px}
+.cinematic .hero::after{content:'+';position:absolute;top:35%;right:16%;color:#e9cd8660;font-size:22px;pointer-events:none}
+.cinematic .story-shade{z-index:1;pointer-events:none;opacity:0;background:linear-gradient(90deg,#09180b90,transparent 65%),linear-gradient(0deg,#0005,transparent 25%)}
+.cinematic .chapters{z-index:3;pointer-events:none}
+.cinematic .chapter{opacity:0;visibility:hidden;transition:none;transform:none;top:22%;left:7%;max-width:600px;pointer-events:none}
+.cinematic .chapter.active{visibility:visible;transform:none;pointer-events:auto}
+.cinematic .chapter h2{font-size:clamp(42px,5.3vw,80px);line-height:1.06;letter-spacing:-3px;margin:20px 0}
+.cinematic .chapter>p:last-of-type{font-size:13px;max-width:300px;line-height:1.8;text-shadow:0 1px 10px #0005}
+.cinematic .chapter:nth-child(2){left:auto;right:7%;top:22%;max-width:540px}
+.cinematic .chapter:nth-child(3){top:22%;max-width:490px}
+.cinematic .chapter:nth-child(4){top:23%;max-width:470px}
+.cinematic .chapter:nth-child(4) h2{font-size:clamp(40px,4.7vw,70px)}
+.cinematic .receipt-mini{width:270px;padding:16px;background:#10231b85;margin-top:20px}
+.cinematic .story-top,.cinematic .story-bottom{z-index:4;opacity:0;pointer-events:none}
+.portal-label{position:absolute;z-index:4;left:50%;top:65%;transform:translate(-50%,-50%);font-size:8px;letter-spacing:3px;opacity:0;pointer-events:none;white-space:nowrap;color:var(--gold)}
+.portal-label>span{position:absolute;left:50%;top:50%;width:120px;height:120px;border:1px solid #e9cd8640;border-top-color:var(--gold);border-radius:50%;transform:translate(-50%,-50%)}
+.word-mask{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.12em;margin-bottom:-.12em}
+.word-mask>span{display:inline-block;transform:translateY(var(--word-y,110%));opacity:var(--word-opacity,0);will-change:transform}
+.film-caption{position:absolute;bottom:17%;right:9%;font-size:8px;letter-spacing:1.5px;color:#e6ebd3;z-index:3;opacity:0;pointer-events:none}
+.cinematic .story-stage.exiting{background:var(--cream)}
+.product{position:relative;padding-top:70px}
+.nav{position:absolute;z-index:20;transition:none}
+.nav.is-film{position:fixed;padding-top:18px;padding-bottom:18px;background:linear-gradient(#0005,transparent);border-color:transparent}
+.cinematic .chapter .category-tags span{background:#0b1c1360;backdrop-filter:blur(5px)}
+@media(max-width:1000px){.cinematic{height:540vh}.hero-wordmark{font-size:16vw}.cinematic .chapter h2{font-size:58px}.cinematic .chapter:nth-child(2){right:6%}}
+@media(max-width:700px){.cinematic{height:450vh}.cinematic .hero-content{padding:100px 5%}.hero-wordmark{font-size:19vw;letter-spacing:-.085em}.hero-tagline{font-size:25px;letter-spacing:-.5px;margin-top:30px}.cinematic .hero .eyebrow{font-size:7px;letter-spacing:1.8px}.cinematic .hero h1{letter-spacing:0}.cinematic .hero-description{font-size:12px;max-width:275px}.cinematic .hero-actions{gap:15px}.cinematic .hero::after{right:12%;top:23%;font-size:16px}.cinematic .chapter,.cinematic .chapter:nth-child(2),.cinematic .chapter:nth-child(3),.cinematic .chapter:nth-child(4){left:6%;right:6%;top:15%;max-width:100%}.cinematic .chapter h2,.cinematic .chapter:nth-child(4) h2{font-size:40px;letter-spacing:-1.8px}.cinematic .chapter>p:last-of-type{font-size:12px;max-width:260px}.cinematic .receipt-mini{display:none}.cinematic .category-tags{gap:5px}.cinematic .category-tags span{font-size:10px;padding:7px 10px}.cinematic .chapter .button{font-size:11px;padding:13px 16px}.cinematic .story-top{top:22px;left:6%;font-size:7px}.cinematic .story-bottom{bottom:23px;left:6%;right:6%}.portal-label{font-size:6px;letter-spacing:2px}.film-caption{font-size:6px;right:6%}}
+@media(prefers-reduced-motion:reduce){.cinematic{height:auto}.cinematic .story-stage{position:relative;height:auto;overflow:visible;background:#000}.cinematic .hero{position:relative;height:100svh;min-height:650px;opacity:1!important;transform:none!important;clip-path:none!important}.film-window,.portal-label,.film-caption{display:none}.cinematic .chapters{position:relative;inset:auto}.cinematic .chapter,.cinematic .chapter:nth-child(2),.cinematic .chapter:nth-child(3),.cinematic .chapter:nth-child(4){position:relative;inset:auto;padding:80px 7%;opacity:1!important;visibility:visible!important;transform:none!important;max-width:none;min-height:430px;background:linear-gradient(90deg,#07120ce6,#07120c80),var(--static-scene) center/cover}.cinematic .chapter:nth-child(1){--static-scene:url('assets/cinematic/0/044.webp')}.cinematic .chapter:nth-child(2){--static-scene:url('assets/cinematic/1/044.webp')}.cinematic .chapter:nth-child(3){--static-scene:url('assets/cinematic/2/044.webp')}.cinematic .chapter:nth-child(4){--static-scene:url('assets/cinematic/3/089.webp')}.word-mask>span{transform:none!important;opacity:1!important}.cinematic .story-top,.cinematic .story-bottom,.cinematic .story-shade{display:none}.nav.is-film{position:absolute}.cinematic .hero-content{opacity:1!important;transform:none!important}}

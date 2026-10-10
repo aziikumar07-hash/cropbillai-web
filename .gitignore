@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+build/
+web/test-results/
+web/playwright-report/
+web/test-artifacts/
+*.log
+.env*
+media-src/**/*.mp4
+cropbillai-web/node_modules/
+cropbillai-web/build/
+__pycache__/

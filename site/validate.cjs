@@ -1,0 +1,44 @@
+const { chromium } = require('C:/Users/Administrator/AppData/Local/Temp/2/opencode/cropbill-validation/node_modules/playwright');
+const fs = require('node:fs');
+(async () => {
+  const edge = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+  const chrome = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+  const browser = await chromium.launch({executablePath:fs.existsSync(edge)?edge:chrome,headless:true});
+  const page = await browser.newPage({viewport:{width:1440,height:1000}});
+  const errors=[];
+  page.on('pageerror',error => errors.push(error.message));
+  page.on('response',response => {if(response.status()>=400) errors.push(`${response.status()} ${response.url()}`);});
+  await page.goto('file:///' + process.cwd().replaceAll('\\','/') + '/site/index.html',{waitUntil:'networkidle'});
+  await page.screenshot({path:'site/preview-desktop.png'});
+  await page.locator('.hero').hover({position:{x:1000,y:500}});
+  if(!await page.locator('.hero').evaluate(el=>el.classList.contains('pointer-inside'))) throw Error('Spotlight missing');
+  await page.locator('#product').scrollIntoViewIfNeeded();
+  await page.getByRole('button',{name:'Rice',exact:true}).click();
+  if(await page.locator('#profit-value').textContent()!=='₹58,000') throw Error('Crop calculation mismatch');
+  await page.screenshot({path:'site/preview-product.png'});
+  await page.locator('#story').evaluate(el=>window.scrollTo(0,el.offsetTop+(el.offsetHeight-window.innerHeight)*.65));
+  await page.waitForTimeout(1200);
+  if(await page.locator('#chapter-count').textContent()!=='03 — 04') throw Error('Story sync mismatch');
+  await page.screenshot({path:'site/preview-story.png'});
+  for(const [name,progress] of [['portal',.065],['drone',.4],['final',.86],['exit',.985],['reverse',.23]]) {
+    await page.locator('#story').evaluate((el,p)=>window.scrollTo(0,el.offsetTop+(el.offsetHeight-window.innerHeight)*p),progress);
+    await page.waitForTimeout(1100);
+    await page.screenshot({path:`site/preview-${name}.png`});
+  }
+  if(await page.locator('#chapter-count').textContent()!=='01 — 04') throw Error('Reverse scrubbing mismatch');
+  await page.locator('#waitlist').scrollIntoViewIfNeeded();
+  await page.locator('#contact').fill('farmer@example.com');
+  await page.getByRole('button',{name:'Keep me in the loop'}).click();
+  if(!(await page.locator('#form-status').textContent()).includes('nothing has been submitted')) throw Error('Local signup handling mismatch');
+  await page.setViewportSize({width:390,height:844});
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:'site/preview-mobile.png'});
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth);
+  if(overflow) throw Error('Mobile horizontal overflow');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.waitForTimeout(150);
+  if(await page.locator('.chapter').evaluateAll(els=>els.some(el=>el.inert))) throw Error('Reduced motion chapters inaccessible');
+  console.log(JSON.stringify({errors,mobileOverflow:overflow,cropSwitch:'passed',scrollChapters:'passed',reverseScrubbing:'passed',localForm:'passed',reducedMotion:'passed'},null,2));
+  await browser.close();
+  if(errors.length) process.exitCode=1;
+})();

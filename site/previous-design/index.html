@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CropBill AI: Snap your farm bills. Know your profit per crop.</title>
+  <meta name="description" content="CropBill AI reads your handwritten and printed farm bills, tracks every expense, and shows what each crop earned this season. Join the early access waitlist.">
+  <meta property="og:title" content="CropBill AI">
+  <meta property="og:description" content="Snap your farm bills. Know your profit per crop.">
+  <meta property="og:url" content="https://cropbillai.me">
+  <meta name="theme-color" content="#1F4D2B">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Mouse Spotlight Layer -->
+  <div class="spotlight-layer" id="spotlightLayer"></div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav container">
+    <a class="logo" href="#" aria-label="CropBill AI home">
+      <img src="assets/logo-mark.svg" alt="" width="34" height="34">
+      <span>CropBill AI</span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#waitlist">Join waitlist</a>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero container" id="waitlist" style="position: relative; z-index: 10;">
+      <!-- Cursor Reveal Layer was removed as it's now .spotlight-layer on body -->
+
+      <div class="hero-text" style="position: relative; z-index: 10; pointer-events: none;">
+        <p class="eyebrow" style="pointer-events: auto;">Built for small farms &amp; traders</p>
+        <h1>Snap your farm bills.<br>Know your profit per crop.</h1>
+        <p class="lead" style="pointer-events: auto;">CropBill AI reads your handwritten and printed bills, tracks every rupee you spend on seed, fertilizer, labour and diesel, and shows exactly what each crop earned this season.</p>
+
+        <!-- Netlify Forms picks this up automatically at deploy time -->
+        <form class="waitlist" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate style="pointer-events: auto;">
+          <input type="hidden" name="form-name" value="waitlist">
+          <p class="hidden" aria-hidden="true">
+            <label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+          </p>
+          <label class="visually-hidden" for="contact">Phone number or email</label>
+          <input id="contact" name="contact" type="text" inputmode="email" autocomplete="email"
+                 placeholder="Enter your phone or email" required maxlength="120"
+                 aria-describedby="form-status">
+          <button class="btn btn-primary" type="submit">Join the waitlist</button>
+        </form>
+        <p id="form-status" class="form-status" role="status" aria-live="polite">Free during early access · No card needed</p>
+      </div>
+
+      <div class="phone" aria-hidden="true">
+        <img src="assets/logo-3d.png" alt="CropBill AI 3D Logo" class="floating-logo delay-2" width="140" height="140">
+        <div class="screen">
+          <p class="muted small">Good morning</p>
+          <p class="screen-title">Your farm this season</p>
+          <div class="profit-card">
+            <p class="tag">Wheat · Rabi 2026</p>
+            <p class="small soft">Profit so far</p>
+            <p class="big">₹ 48,200</p>
+            <p class="small soft">Sold ₹ 80,800 · Spent ₹ 32,600</p>
+          </div>
+          <div class="costs">
+            <p class="costs-title">Where your money went</p>
+            <div class="cost"><span>Labour</span><b>₹ 12,000</b><i style="--w:100%"></i></div>
+            <div class="cost"><span>Fertilizer</span><b>₹ 9,800</b><i style="--w:82%"></i></div>
+            <div class="cost"><span>Seeds</span><b>₹ 6,500</b><i style="--w:54%"></i></div>
+            <div class="cost"><span>Diesel</span><b>₹ 4,300</b><i style="--w:36%"></i></div>
+          </div>
+          <div class="scan-btn">+ Scan a new bill</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CANVAS SCROLL SCRUBBING -->
+    <section class="scroll-canvas-container" aria-hidden="true">
+      <div class="canvas-sticky">
+        <canvas id="scrollVideoCanvas"></canvas>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section-white" id="how" aria-labelledby="how-title">
+      <div class="container">
+        <p class="kicker">How it works</p>
+        <h2 id="how-title">From paper bill to profit in three steps</h2>
+        <ol class="grid-3">
+          <li class="card card-cream">
+            <span class="num" aria-hidden="true">1</span>
+            <h3>Snap the bill</h3>
+            <p>Take a photo of any bill: seed shop, fertilizer dealer, labour payment or mandi sale slip.</p>
+          </li>
+          <li class="card card-cream">
+            <span class="num" aria-hidden="true">2</span>
+            <h3>AI sorts it</h3>
+            <p>CropBill AI reads the amount, date and item, and files it under the right crop and season.</p>
+          </li>
+          <li class="card card-cream">
+            <span class="num" aria-hidden="true">3</span>
+            <h3>See your profit</h3>
+            <p>Get a clear profit and loss for every crop, every season, in one simple screen.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <p class="kicker">Features</p>
+        <h2 id="features-title">Made for how farms actually keep records</h2>
+        <ul class="grid-2">
+          <li class="card card-outline"><h3>Reads handwritten bills</h3><p>Works with the rough, handwritten slips most village shops still use.</p></li>
+          <li class="card card-outline"><h3>Profit per crop</h3><p>Know which field and which crop actually made money this season.</p></li>
+          <li class="card card-outline"><h3>Credit &amp; dues tracking</h3><p>Keep track of who owes you and what you owe the dealer.</p></li>
+          <li class="card card-outline"><h3>Loan-ready reports</h3><p>Share clean records with your bank or co-operative when applying for credit.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="section section-white" aria-labelledby="testimonial-title">
+      <div class="container" style="text-align: center; max-width: 800px;">
+        <h2 id="testimonial-title" class="visually-hidden">Testimonial</h2>
+        <blockquote style="font-size: 24px; font-weight: 500; color: var(--green); margin: 0 0 24px;">
+          "I used to spend days at the end of the season trying to figure out if I made money on my cotton crop. CropBill AI does it instantly from my phone."
+        </blockquote>
+        <p style="font-weight: 600; color: var(--ink);">— Rajesh K., Farmer</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container" style="max-width: 800px;">
+        <h2 id="faq-title">Frequently Asked Questions</h2>
+        <div style="display: grid; gap: 24px;">
+          <div class="card card-outline">
+            <h3>Does it work without internet?</h3>
+            <p>CropBill AI requires an internet connection to scan and read bills initially, but your records are saved on your device for offline viewing anytime.</p>
+          </div>
+          <div class="card card-outline">
+            <h3>Is my financial data safe?</h3>
+            <p>Yes. Your bills and financial data are encrypted and private. We never share your data with seed companies, dealers, or advertisers.</p>
+          </div>
+          <div class="card card-outline">
+            <h3>Which languages are supported?</h3>
+            <p>Currently, the app supports English and Hindi, with more regional languages coming soon.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container cta-wrap" aria-labelledby="cta-title">
+      <div class="cta">
+        <h2 id="cta-title">Stop guessing. Know your farm's numbers.</h2>
+        <p>Join the early access list and be first to try CropBill AI.</p>
+        <a class="btn btn-light" href="#waitlist">Join the waitlist</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year">2026</span> CropBill AI</p>
+      <p>cropbillai.me</p>
+    </div>
+  </footer>
+
+<!-- GSAP for scroll scrubbing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>
