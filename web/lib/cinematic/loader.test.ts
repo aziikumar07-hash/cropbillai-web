@@ -1,0 +1,15 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { buildRequests, createLoader } from './loader.ts';
+import type { FrameImage, FrameKey } from './loader.ts';
+test('planning prioritises exact and prefetches variable scene endpoints',() => { const keys=buildRequests({ scene:1,local:.02,index:1 },[91,80,60]); assert.equal(keys[0],'1:1'); assert.ok(keys.includes('0:90')); assert.equal(keys.length,new Set(keys).size); assert.ok(buildRequests({ scene:1,local:.9,index:72 },[91,80,60]).includes('2:0')); });
+function fixture() {
+  const images: FrameImage[]=[],timers=new Map<number,() => void>(); let id=0,allowed=true,current={ scene:0,index:0 };
+  const loader=createLoader({ createImage:() => { const i={ src:'',onload:null,onerror:null }; images.push(i); return i as FrameImage; },url:k => k,canLoad:() => allowed,onLoaded:() => {},current:() => current,setTimeout:fn => { const key=++id; timers.set(key,() => { timers.delete(key); fn(); }); return key; },clearTimeout:id => { timers.delete(id); } },{ concurrency:2,cacheSize:3,retryDelayMs:10 });
+  return { loader,images,timers,gate:(v: boolean) => { allowed=v; },position:(i: number) => { current={ scene:0,index:i }; } };
+}
+test('concurrency, hidden gate, and reset cancellation',() => { const f=fixture(); f.gate(false); f.loader.setRequests(['0:0','0:1','0:2']); assert.equal(f.images.length,0); f.gate(true); f.loader.pump(); assert.equal(f.images.length,2); f.images[0].onload!(new Event('load')); assert.equal(f.images.length,3); f.loader.destroy(); assert.ok(f.images.every(i => !i.onload && !i.onerror)); });
+test('one retry and permanent second failure',() => { const f=fixture(); f.loader.setRequests(['0:0']); f.images[0].onerror!(new Event('error')); assert.equal(f.timers.size,1); [...f.timers.values()][0](); assert.equal(f.images.length,2); f.images[1].onerror!(new Event('error')); f.loader.setRequests(['0:0']); assert.equal(f.images.length,2); f.loader.reset(); assert.equal(f.timers.size,0); });
+test('retry out of range waits for a future plan',() => { const f=fixture(); f.loader.setRequests(['0:0']); f.images[0].onerror!(new Event('error')); f.position(30); [...f.timers.values()][0](); assert.equal(f.images.length,1); f.loader.setRequests(['0:0']); assert.equal(f.images.length,2); });
+test('nearest searches full scene and cache stays bounded',() => { const f=fixture(); for (const index of [0,20,40,60]) { f.loader.setRequests([`0:${index}` as FrameKey]); f.images.at(-1)!.onload!(new Event('load')); } assert.equal(f.loader.get('0:0'),undefined); assert.equal(f.loader.nearest(0,25)?.src,'0:20'); assert.equal(f.loader.nearest(1,25),undefined); });
+test('reset cancels a delayed retry so variant switches cannot requeue stale URLs',() => { const f=fixture(); f.loader.setRequests(['0:0']); f.images[0].onerror!(new Event('error')); assert.equal(f.timers.size,1); f.loader.reset(); assert.equal(f.timers.size,0); f.loader.setRequests(['0:1']); assert.equal(f.images.length,2); assert.equal(f.images[1].src,'0:1'); });

@@ -1,0 +1,18 @@
+/* Default readable layout for no-JS and explicitly unavailable cinematic. */
+html:not(.js) .cinematic,#story[data-cinematic=unavailable]{height:auto!important}
+html:not(.js) .stage,#story[data-cinematic=unavailable] .stage{position:relative!important;height:auto!important;overflow:hidden}
+html:not(.js) .film,html:not(.js) .film canvas,html:not(.js) .story-shade,html:not(.js) .story-top,html:not(.js) .story-bottom,html:not(.js) .portal-label,html:not(.js) .film-caption,#story[data-cinematic=unavailable] :is(.film,.story-shade,.story-top,.story-bottom,.portal-label,.film-caption){display:none!important}
+html:not(.js) .chapters,#story[data-cinematic=unavailable] .chapters{position:relative!important}
+html:not(.js) .hero-layer,#story[data-cinematic=unavailable] .hero-layer{position:relative!important;min-height:100svh}
+html:not(.js) .chapter,#story[data-cinematic=unavailable] .chapter{position:relative!important;opacity:1!important;transform:none!important;margin:0!important;top:auto!important;left:auto!important;right:auto!important;padding:90px 6vw;min-height:500px;background:linear-gradient(90deg,#08120ce8,#08120c77),var(--still);background-size:cover;background-position:center;pointer-events:auto!important}
+html:not(.js) .word-mask>span,#story[data-cinematic=unavailable] .word-mask>span{transform:none!important;opacity:1!important}
+html:not(.js) #categories{height:auto}html:not(.js) .carousel-stage{position:relative;height:auto;min-height:750px;padding-bottom:100px}html:not(.js) .carousel-track{position:relative;top:auto;display:flex;overflow-x:auto;gap:20px;scroll-snap-type:x mandatory;height:auto;padding:40px 24px;transform-style:flat}html:not(.js) .carousel-item{position:relative;left:auto;flex:0 0 280px;scroll-snap-align:center;transform:none!important;filter:none!important;opacity:1!important}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}*,*:before,*:after{animation:none!important;transition:none!important}
+  .cinematic{height:auto!important}.cinematic .stage{position:relative!important;height:auto!important;overflow:hidden}
+  .film,.film canvas,.story-shade,.story-top,.story-bottom,.portal-label,.film-caption{display:none!important}
+  .hero-layer{position:relative!important;min-height:100svh}.hero-bg,.hero-content,.hero-bottom,.site-header{opacity:1!important;transform:none!important;mask-image:none!important}.hero-day{display:none}.chapters{position:relative!important}
+  .chapter{position:relative!important;opacity:1!important;transform:none!important;margin:0!important;top:auto!important;left:auto!important;right:auto!important;padding:90px 6vw;min-height:500px;background:linear-gradient(90deg,#08120ce8,#08120c77),var(--still);background-size:cover;background-position:center;pointer-events:auto!important}
+  .word-mask>span{transform:none!important;opacity:1!important}.reveal{opacity:1!important;transform:none!important}.tilt>*{transform:none!important}.scan-line{display:none!important}
+  #categories{height:auto!important}.carousel-stage{position:relative!important;height:auto!important;min-height:750px;padding-bottom:100px}.carousel-track{position:relative!important;top:auto!important;display:flex;overflow-x:auto;gap:20px;scroll-snap-type:x mandatory;height:auto;padding:40px 24px;transform-style:flat}.carousel-item{position:relative!important;left:auto!important;flex:0 0 280px;scroll-snap-align:center;transform:none!important;filter:none!important;opacity:1!important;will-change:auto}
+}

@@ -11,3 +11,8 @@ media-src/**/*.mp4
 cropbillai-web/node_modules/
 cropbillai-web/build/
 __pycache__/
+tools/out/
+web/.cinematic-staging/
+web/public/asset-flags.json
+*.tsbuildinfo
+.agents/

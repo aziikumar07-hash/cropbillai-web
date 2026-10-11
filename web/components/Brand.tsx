@@ -1,0 +1,2 @@
+export function Brand() { return <a href="/" className="brand" aria-label="CropBillAI home"><img src="/icon.svg" width="34" height="34" alt=""/>CropBill<span>AI</span></a>; }
+export function Footer() { return <footer className="site-footer"><Brand/><p>Built for the work behind the harvest.</p><div><span>© 2026 CropBillAI</span><a href="/privacy">Privacy</a><a href="#waitlist">Get early access ↗</a></div></footer>; }

@@ -1,0 +1,25 @@
+{
+  "version": "610a591510b6",
+  "mode": "continuous",
+  "beats": [
+    0,
+    0.3,
+    0.55,
+    0.76
+  ],
+  "variants": [
+    "desktop",
+    "mobile"
+  ],
+  "sizes": {
+    "desktop": 1280,
+    "mobile": 640
+  },
+  "scenes": [
+    {
+      "frames": 210,
+      "origin": "video",
+      "duration": 15.04
+    }
+  ]
+}
